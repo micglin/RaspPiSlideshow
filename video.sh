@@ -4,4 +4,9 @@
 #
 # Author: Michael Lindholm
 #####################################
-/usr/bin/omxplayer -o hdmi /var/media/videos/video.mp4
+
+# Capture first video filename to variable
+VIDEO=`ls /var/media/videos/* | head -n 1`
+
+# Play video file, output sound to HDMI
+/usr/bin/omxplayer -o hdmi $VIDEO
