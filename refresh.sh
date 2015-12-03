@@ -9,9 +9,11 @@ DATE=`date`
 
 # Update slides.txt
 ls -v /var/media/slides/* | grep JPG > /var/media/logs/slides.new.txt
+md5sum /var/media/slides/* | grep JPG > /var/media/logs/slides.new.md5
+md5sum /var/media/current/* | grep JPG > /var/media/logs/slides.current.md5
 
 # Diff slides files
-diff /var/media/logs/slides.new.txt /var/media/logs/slides.txt
+diff /var/media/logs/slides.current.md5 /var/media/logs/slides.new.md5
 
 # If the files are different then replace slides.txt and kill fbi
 if [[ $? != 0 ]]
