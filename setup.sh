@@ -11,7 +11,7 @@ sudo apt-get update
 sudo apt-get upgrade -y
 
 # Install required packages
-sudo apt-get install -y fbi screen omxplayer
+sudo apt-get install -y fbi screen omxplayer imagemagick
 
 # Create working directories
 sudo mkdir -p /var/media/scripts
@@ -25,6 +25,10 @@ sudo chmod -R 777 /var/media
 wget https://raw.githubusercontent.com/micglin/RaspPiSlideshow/master/video.sh -O /var/media/scripts/video.sh
 wget https://raw.githubusercontent.com/micglin/RaspPiSlideshow/master/slides.sh -O /var/media/scripts/slides.sh
 wget https://raw.githubusercontent.com/micglin/RaspPiSlideshow/master/refresh.sh -O /var/media/scripts/refresh.sh
+
+# Make executable
+
+sudo chmod a+x /var/media/scripts/*.sh
 
 #Setup Crontab
 cat <<EOF | sudo crontab -

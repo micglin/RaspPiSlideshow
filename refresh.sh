@@ -23,5 +23,6 @@ then
   cp /var/media/slides/* /var/media/current/
   # Set new slide list file
   mv /var/media/logs/slides.new.txt /var/media/logs/slides.txt
-  killall -9 fbi
+  # Quit fbi gently so the console doesn't get stuck; slides.sh will relaunch
+  killall -3 fbi
 fi
