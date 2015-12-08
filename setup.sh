@@ -36,5 +36,5 @@ cat <<EOF | sudo crontab -
 */30 * * * * /var/media/scripts/video.sh
 @reboot /var/media/scripts/slides.sh
 * * * * * /var/media/scripts/refresh.sh
-* * * * * /var/media/scripts/checkin.sh 1>/dev/null 2> $1
+* * * * * /var/media/scripts/checkin.sh 1>/dev/null 2>&1
 EOF
