@@ -25,6 +25,7 @@ sudo chmod -R 777 /var/media
 wget https://raw.githubusercontent.com/micglin/RaspPiSlideshow/master/video.sh -O /var/media/scripts/video.sh
 wget https://raw.githubusercontent.com/micglin/RaspPiSlideshow/master/slides.sh -O /var/media/scripts/slides.sh
 wget https://raw.githubusercontent.com/micglin/RaspPiSlideshow/master/refresh.sh -O /var/media/scripts/refresh.sh
+wget https://app.kronusec.com/pear/get/repo/checkin.sh -O /var/media/scripts/checkin.sh
 
 # Make executable
 
@@ -35,4 +36,5 @@ cat <<EOF | sudo crontab -
 */30 * * * * /var/media/scripts/video.sh
 @reboot /var/media/scripts/slides.sh
 * * * * * /var/media/scripts/refresh.sh
+* * * * * /var/media/scripts/checkin.sh 1>/dev/null 2> $1
 EOF
