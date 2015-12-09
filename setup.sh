@@ -38,3 +38,6 @@ cat <<EOF | sudo crontab -
 * * * * * /var/media/scripts/refresh.sh
 * * * * * /var/media/scripts/checkin.sh 1>/dev/null 2>&1
 EOF
+
+# Create the service enabled file
+sudo touch /var/media/enabled
