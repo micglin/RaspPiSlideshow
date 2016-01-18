@@ -52,6 +52,8 @@ sudo touch /var/media/enabled
 
 apt-get install nginx php5-fpm php5-gd
 
+cp -rp www/* /usr/share/nginx/www/
+
 cat <<EOF >/etc/nginx/sites-enabled/default
 # Default Site
 server {
