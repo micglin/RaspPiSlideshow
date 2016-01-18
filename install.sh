@@ -24,7 +24,7 @@ cp disp.py /var/media/scripts
 
 cp media/bg.jpg /var/media/bg.jpg
 
-cp medai/1.jpg /var/media/slides/
+cp media/1.jpg /var/media/slides/
 cp media/2.jpg /var/media/slides/
 cp media/3.jpg /var/media/slides/
 
