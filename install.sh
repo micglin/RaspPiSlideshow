@@ -49,3 +49,36 @@ EOF
 
 # Create the service enabled file
 sudo touch /var/media/enabled
+
+apt-get install nginx php5-fpm php5-gd
+
+cat <<EOF >/etc/nginx/sites-enabled/default
+# Default Site
+server {
+        listen   80; ## listen for ipv4; this line is default and implied
+
+        root /usr/share/nginx/www;
+        index index.php index.html index.htm;
+
+        location / {
+                try_files $uri $uri/ /index.html;
+        }
+
+        location ~ \.php$ {
+                fastcgi_split_path_info ^(.+\.php)(/.+)$;
+                fastcgi_pass unix:/var/run/php5-fpm.sock;
+                fastcgi_index index.php;
+                include fastcgi_params;
+        }
+
+        location ~ /\.ht {
+                deny all;
+        }
+}
+EOF
+
+ln -s /var/media/slides/ /usr/share/nginx/www/share
+chmod -R 777 /usr/share/nginx/www/share
+chmod -R 777 /var/media/slides/
+
+/etc/init.d/nginx start
