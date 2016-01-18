@@ -215,7 +215,7 @@ def mainLoop():
     DISPLAYSURF.blit(logo2, (2*so+s1w+1,so+1))
     if now-last_logo > update_logo:
        last_logo = now
-       w_logo = w_logo+1
+       logo_num = logo_num+1
     
     # Display Stock Info
     font = pygame.font.Font(None, 70)
