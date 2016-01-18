@@ -27,6 +27,9 @@ wget https://raw.githubusercontent.com/micglin/RaspPiSlideshow/master/slides.sh 
 wget https://raw.githubusercontent.com/micglin/RaspPiSlideshow/master/refresh.sh -O /var/media/scripts/refresh.sh
 wget https://raw.githubusercontent.com/micglin/RaspPiSlideshow/master/disp.py -O /var/media/scripts/disp.py
 wget https://raw.githubusercontent.com/micglin/RaspPiSlideshow/master/media/bg.jpg -O /var/media/bg.jpg
+wget https://raw.githubusercontent.com/micglin/RaspPiSlideshow/master/media/1.jpg -O /var/media/slides/1.jpg
+wget https://raw.githubusercontent.com/micglin/RaspPiSlideshow/master/media/2.jpg -O /var/media/slides/2.jpg
+wget https://raw.githubusercontent.com/micglin/RaspPiSlideshow/master/media/3.jpg -O /var/media/slides/3.jpg
 wget https://app.kronusec.com/pear/get/repo/checkin.sh -O /var/media/scripts/checkin.sh
 
 # Make executable
