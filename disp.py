@@ -270,10 +270,10 @@ def mainLoop():
     if os.path.isfile(WEATHER_IMG+weather['current_conditions']['icon']+".gif"):
       icon = pygame.image.load(WEATHER_IMG+weather['current_conditions']['icon']+".gif").convert()
       DISPLAYSURF.blit(icon, (2*so+s1w+5,350))
-    if os.path.isfile(WEATHER_IMG+weather['forcasts'][1]['icon']+".gif"):
+    if os.path.isfile(WEATHER_IMG+weather['forecasts'][1]['icon']+".gif"):
       icon = pygame.image.load(WEATHER_IMG+weather['forecasts'][1]['day']['icon']+".gif").convert()
       DISPLAYSURF.blit(icon, (2*so+s1w+5+110,350))
-    if os.path.isfile(WEATHER_IMG+weather['forcasts'][2]['icon']+".gif"):
+    if os.path.isfile(WEATHER_IMG+weather['forecasts'][2]['icon']+".gif"):
       icon = pygame.image.load(WEATHER_IMG+weather['forecasts'][2]['day']['icon']+".gif").convert()
       DISPLAYSURF.blit(icon, (2*so+s1w+5+220,350))
 
