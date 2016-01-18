@@ -5,6 +5,9 @@
 import pygame, sys, os, math
 from pygame.locals import *
 import time
+from os import listdir
+from os.path import isfile, join
+import string
 
 # Set the display to fb1 - i.e. the TFT
 os.environ["SDL_FBDEV"] = "/dev/fb0"
@@ -21,9 +24,19 @@ RED   = (255,   0,   0)
 GREEN = (  0, 255,   0)
 BLUE  = (  0,   0, 255)
 IRED  = (176,  23,  21)
+SLIDES_DIR = "/var/media/current/"
+
+update_slide = 10
+update_text1 = 1     
+update_text2 = 1
+update_logo = 60
+update_weather = 900
+update_stocks = 900
 
 # main game loop
 def main():
+    now = time.time()
+    
     screen = None;
 
     "Ininitializes a new pygame screen using the framebuffer"
@@ -49,6 +62,15 @@ def main():
         break
 
     global FPSCLOCK, DISPLAYSURF, DISPLAY_W, DISPLAY_H
+    global slide_num, last_slide, last_text1, last_text2, last_logo
+    
+    last_slide = now
+    last_text1 = now   
+    last_text2 = now
+    last_logo = now
+
+    slide_num = 0
+
     FPSCLOCK = pygame.time.Clock()
     size = (pygame.display.Info().current_w, pygame.display.Info().current_h)
     DISPLAY_W = pygame.display.Info().current_w
@@ -115,10 +137,13 @@ def dispLogo():
     DISPLAYSURF.blit (textSurfaceObj, textRectObj)
 
 def mainLoop():
+    global slide_num, last_slide, last_text1, last_text2, last_logo
+    now = time.time()
+    
     DISPLAYSURF.fill((0, 0, 0))
     bg = pygame.image.load('/var/media/bg.jpg').convert()
     DISPLAYSURF.blit(bg, (0, 500))
-
+    
     borderColor = (255, 255, 255)
     lineColor = (64, 64, 64)
 
@@ -131,8 +156,23 @@ def mainLoop():
     pygame.draw.rect(DISPLAYSURF, borderColor, (2*so+s1w,510,364,364), 1)
     pygame.draw.rect(DISPLAYSURF, borderColor, (0,0,1920-1,1080-1), 1)
 
+    # Display Slides
+    slides = [f for f in listdir(SLIDES_DIR) if isfile(join(SLIDES_DIR, f))]
+
+    if slide_num >= len(slides):
+      slide_num=0;
+
+    slide = pygame.image.load(SLIDES_DIR+slides[slide_num]).convert()
+    slide2 = pygame.transform.scale(slide, (s1w-2, s1h-2))
+    DISPLAYSURF.blit(slide2, (6, 6))
+    if now-last_slide > update_slide:
+      last_slide = now
+      slide_num = slide_num+1
+
     print "."
 
 # Run Main Function
 if __name__ == '__main__':
     main()
+
+
