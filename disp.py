@@ -8,25 +8,17 @@ import time
 from os import listdir
 from os.path import isfile, join
 import string
+import json
 
 # Set the display to fb1 - i.e. the TFT
 os.environ["SDL_FBDEV"] = "/dev/fb0"
 # Remove mouse
 os.environ["SDL_NOMOUSE"]="1"
 
-# Set constants
-FPS=1000
-DISPLAY_H=240 # 120 for 1.8"
-DISPLAY_W=320 # 168 for 1.8"
-BLACK = (  0,   0,   0)
-WHITE = (255, 255, 255)
-RED   = (255,   0,   0)
-GREEN = (  0, 255,   0)
-BLUE  = (  0,   0, 255)
-IRED  = (176,  23,  21)
 SLIDES_DIR = "/var/media/current/"
 LOGOS_DIR =  "/var/media/logos/"
 DATA_DIR =  "/var/media/data/"
+WEATHER_IMG = "/var/media/data/yimg/"
 
 update_slide = 10
 update_text1 = 1     
@@ -35,8 +27,14 @@ update_logo = 60
 update_weather = 900
 update_stocks = 900
 
-line1 = ["Welcome here!", "Welcome two!"]
-line2 = ["Have a nice day!", "Visit the tech hub!", "There will be cake at the end of the day"]
+# Set constants
+FPS=1000
+BLACK = (  0,   0,   0)
+WHITE = (255, 255, 255)
+RED   = (255,   0,   0)
+GREEN = (  0, 255,   0)
+BLUE  = (  0,   0, 255)
+IRED  = (176,  23,  21)
 
 # main game loop
 def main():
@@ -67,7 +65,12 @@ def main():
         break
 
     global FPSCLOCK, DISPLAYSURF, DISPLAY_W, DISPLAY_H
-    global slide_num, last_slide, last_text1, last_text2, last_logo, line1_num, line2_num
+    global slide_num, last_slide, last_text1, last_text2, last_logo, line1_num, line2_num, logo_num
+    global line1, line2
+
+    load_text()
+    load_stock()
+    load_weather()
     
     last_slide = now
     last_text1 = now   
@@ -77,6 +80,7 @@ def main():
     slide_num = 0
     line1_num = 0
     line2_num = 0
+    logo_num = 0
 
     FPSCLOCK = pygame.time.Clock()
     size = (pygame.display.Info().current_w, pygame.display.Info().current_h)
@@ -144,7 +148,8 @@ def dispLogo():
     DISPLAYSURF.blit (textSurfaceObj, textRectObj)
 
 def mainLoop():
-    global slide_num, last_slide, last_text1, last_text2, last_logo, line1_num, line2_num
+    global slide_num, last_slide, last_text1, last_text2, last_logo, line1_num, line2_num, logo_num
+    global line1, line2, stock, weather
     now = time.time()
     
     DISPLAYSURF.fill((0, 0, 0))
@@ -211,10 +216,112 @@ def mainLoop():
     if now-last_logo > update_logo:
        last_logo = now
        w_num = w_num+1
+    
+    # Display Stock Info
+    font = pygame.font.Font(None, 70)
+    text_surface = font.render(stock['name'], True, (255, 255, 255), (0,0,0))  # White text  
+    DISPLAYSURF.blit(text_surface, (2*so+s1w+5,515))
+
+    font = pygame.font.Font(None, 50)
+    text_surface = font.render(stock['share'], True, (200, 255, 200), (0,0,0))  # White text  
+    DISPLAYSURF.blit(text_surface, (2*so+s1w+5,565))
+
+    font = pygame.font.Font(None, 70)
+    text_surface = font.render("" + stock['change'], True, (255, 100, 100), (0,0,0))  # White text  
+    DISPLAYSURF.blit(text_surface, (2*so+s1w+5,615))
+
+    font = pygame.font.Font(None, 70)
+    text_surface = font.render("Price: " + stock['price'], True, (200, 200, 200), (0,0,0))  # White text  
+    DISPLAYSURF.blit(text_surface, (2*so+s1w+5,665))
+ 
+    font = pygame.font.Font(None, 40)
+    text_surface = font.render("Todays High: " + stock['high'], True, (255, 200, 200), (0,0,0))  # White text  
+    DISPLAYSURF.blit(text_surface, (2*so+s1w+5,735))
+
+    font = pygame.font.Font(None, 40)
+    text_surface = font.render("Todays Low: " + stock['low'], True, (255, 200, 200), (0,0,0))  # White text  
+    DISPLAYSURF.blit(text_surface, (2*so+s1w+5,765))
+
+    # Display Weather
+    font = pygame.font.Font(None, 70)
+    text_surface = font.render(weather['location'], True, (255, 255, 255), (0,0,0))  # White text  
+    DISPLAYSURF.blit(text_surface, (2*so+s1w+5,145))
+    
+    pygame.draw.rect(DISPLAYSURF, (255,255,255), (2*so+s1w+5,195,350,150), 0)
+    icon = pygame.image.load(WEATHER_IMG+weather['current_conditions']['icon']+".gif").convert()
+    DISPLAYSURF.blit(icon, (2*so+s1w+5,195))
+
+    font = pygame.font.Font(None, 70)
+    text_surface = font.render(weather['current_conditions']['temperature']+"F", True, (100, 100, 255))  # White text  
+    DISPLAYSURF.blit(text_surface, (2*so+s1w+5+100,195))
+
+    font = pygame.font.Font(None, 50)
+    text_surface = font.render(weather['current_conditions']['text'], True, (255, 100, 100)) 
+    DISPLAYSURF.blit(text_surface, (2*so+s1w+5,245))
+
+    font = pygame.font.Font(None, 50)
+    text_surface = font.render("Wind: " + string.lower(weather['current_conditions']['wind']['speed']) + weather['current_conditions']['wind']['text'], True, (100, 100, 100))
+    DISPLAYSURF.blit(text_surface, (2*so+s1w+5,295))
+
+    pygame.draw.rect(DISPLAYSURF, (255,255,255), (2*so+s1w+5,350,55,55), 0)
+    pygame.draw.rect(DISPLAYSURF, (255,255,255), (2*so+s1w+5+110,350,55,55), 0)
+    pygame.draw.rect(DISPLAYSURF, (255,255,255), (2*so+s1w+5+220,350,55,55), 0)
+    icon = pygame.image.load(WEATHER_IMG+weather['current_conditions']['icon']+".gif").convert()
+    DISPLAYSURF.blit(icon, (2*so+s1w+5,350))
+    icon = pygame.image.load(WEATHER_IMG+weather['forecasts'][1]['day']['icon']+".gif").convert()
+    DISPLAYSURF.blit(icon, (2*so+s1w+5+110,350))
+    icon = pygame.image.load(WEATHER_IMG+weather['forecasts'][2]['day']['icon']+".gif").convert()
+    DISPLAYSURF.blit(icon, (2*so+s1w+5+220,350))
+
+    font = pygame.font.Font(None, 35)
+    text_surface = font.render(weather['forecasts'][0]['day_of_week'], True, (255, 255, 255), (0,0,0))  # White text  
+    DISPLAYSURF.blit(text_surface, (2*so+s1w+5,400))
+    font = pygame.font.Font(None, 35)
+    text_surface = font.render("High: " + weather['forecasts'][0]['high'], True, (255, 100, 100), (0,0,0))  # White text  
+    DISPLAYSURF.blit(text_surface, (2*so+s1w+5,430))
+    font = pygame.font.Font(None, 35)
+    text_surface = font.render("Low: " + weather['forecasts'][0]['low'], True, (100, 255, 100), (0,0,0))  # White text  
+    DISPLAYSURF.blit(text_surface, (2*so+s1w+5,460))
+
+    font = pygame.font.Font(None, 35)
+    text_surface = font.render(weather['forecasts'][1]['day_of_week'], True, (220, 220, 220), (0,0,0))  # White text  
+    DISPLAYSURF.blit(text_surface, (2*so+s1w+5+110,400))
+    font = pygame.font.Font(None, 35)
+    text_surface = font.render("High: " + weather['forecasts'][1]['high'], True, (255, 100, 100), (0,0,0))  # White text  
+    DISPLAYSURF.blit(text_surface, (2*so+s1w+5+110,430))
+    font = pygame.font.Font(None, 35)
+    text_surface = font.render("Low: " + weather['forecasts'][1]['low'], True, (100, 255, 100), (0,0,0))  # White text  
+    DISPLAYSURF.blit(text_surface, (2*so+s1w+5+110,460))
+
+    font = pygame.font.Font(None, 35)
+    text_surface = font.render(weather['forecasts'][2]['day_of_week'], True, (200, 200, 200), (0,0,0))  # White text  
+    DISPLAYSURF.blit(text_surface, (2*so+s1w+5+220,400))
+    font = pygame.font.Font(None, 35)
+    text_surface = font.render("High: " + weather['forecasts'][2]['high'], True, (255, 100, 100), (0,0,0))  # White text  
+    DISPLAYSURF.blit(text_surface, (2*so+s1w+5+220,430))
+    font = pygame.font.Font(None, 35)
+    text_surface = font.render("Low: " + weather['forecasts'][2]['low'], True, (100, 255, 100), (0,0,0))  # White text  
+    DISPLAYSURF.blit(text_surface, (2*so+s1w+5+220,460))
 
     print "."
+
+def load_text():
+    global line1, line2
+    line1 = [line.rstrip('\n') for line in open(DATA_DIR+"line1.txt")]
+    line2 = [line.rstrip('\n') for line in open(DATA_DIR+"line2.txt")]
+
+def load_stock():
+    global stock
+    with open(DATA_DIR+'stock.json', 'r') as f:
+      stock = json.load(f)
+
+def load_weather():
+    global weather
+    with open(DATA_DIR+'weather.json', 'r') as f:
+      weather = json.load(f)
 
 # Run Main Function
 if __name__ == '__main__':
     main()
+
 

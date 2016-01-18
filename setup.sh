@@ -20,6 +20,7 @@ sudo mkdir -p /var/media/current	# Working directory for running slideshow
 sudo mkdir -p /var/media/slides 	# Upload location for new slide files
 sudo mkdir -p /var/media/videos
 sudo mkdir -p /var/media/data
+sudo mkdir -p /var/media/data/yimg
 sudo mkdir -p /var/media/logos
 sudo chmod -R 777 /var/media
 
