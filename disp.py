@@ -115,6 +115,22 @@ def dispLogo():
     DISPLAYSURF.blit (textSurfaceObj, textRectObj)
 
 def mainLoop():
+    DISPLAYSURF.fill((0, 0, 0))
+    bg = pygame.image.load('/var/media/bg.jpg').convert()
+    DISPLAYSURF.blit(bg, (0, 500))
+
+    borderColor = (255, 255, 255)
+    lineColor = (64, 64, 64)
+
+    s1w = 1541
+    s1h = 869
+    so = 5
+    pygame.draw.rect(DISPLAYSURF, borderColor, (so,so,s1w,s1h), 1)
+    pygame.draw.rect(DISPLAYSURF, borderColor, (2*so+s1w,so,364,131), 1)
+    pygame.draw.rect(DISPLAYSURF, borderColor, (2*so+s1w,141,364,364), 1)
+    pygame.draw.rect(DISPLAYSURF, borderColor, (2*so+s1w,510,364,364), 1)
+    pygame.draw.rect(DISPLAYSURF, borderColor, (0,0,1920-1,1080-1), 1)
+
     print "."
 
 # Run Main Function
