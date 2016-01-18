@@ -154,7 +154,7 @@ def mainLoop():
     pygame.draw.rect(DISPLAYSURF, borderColor, (2*so+s1w,so,364,131), 1)
     pygame.draw.rect(DISPLAYSURF, borderColor, (2*so+s1w,141,364,364), 1)
     pygame.draw.rect(DISPLAYSURF, borderColor, (2*so+s1w,510,364,364), 1)
-    pygame.draw.rect(DISPLAYSURF, red, (0,0,1920-1,1080-1), 1)
+    pygame.draw.rect(DISPLAYSURF, RED, (0,0,1920-1,1080-1), 1)
 
     # Display Slides
     slides = [f for f in listdir(SLIDES_DIR) if isfile(join(SLIDES_DIR, f))]
