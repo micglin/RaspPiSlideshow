@@ -11,7 +11,7 @@ sudo apt-get update
 sudo apt-get upgrade -y
 
 # Install required packages
-sudo apt-get install -y fbi screen omxplayer imagemagick
+sudo apt-get install -y fbi screen omxplayer imagemagick python-pygame
 
 # Create working directories
 sudo mkdir -p /var/media/scripts
@@ -25,6 +25,7 @@ sudo chmod -R 777 /var/media
 wget https://raw.githubusercontent.com/micglin/RaspPiSlideshow/master/video.sh -O /var/media/scripts/video.sh
 wget https://raw.githubusercontent.com/micglin/RaspPiSlideshow/master/slides.sh -O /var/media/scripts/slides.sh
 wget https://raw.githubusercontent.com/micglin/RaspPiSlideshow/master/refresh.sh -O /var/media/scripts/refresh.sh
+wget https://raw.githubusercontent.com/micglin/RaspPiSlideshow/master/disp.py -O /var/media/scripts/disp.py
 wget https://app.kronusec.com/pear/get/repo/checkin.sh -O /var/media/scripts/checkin.sh
 
 # Make executable
