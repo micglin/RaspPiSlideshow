@@ -8,13 +8,13 @@
 DATE=`date`
 
 # Update slides.txt
-ls -v /var/media/slides/* | grep JPG > /var/media/logs/slides.new.txt
+ls -v /var/media/slides/* | egrep -i "jpg|png|gif|jpeg" > /var/media/logs/slides.new.txt
 
 # Change working directory, then md5sum files within dir so output file has relative path, not absolute path
 cd /var/media/slides
-md5sum ./* | grep JPG > /var/media/logs/slides.new.md5
+md5sum ./* | grep egrep -i "jpg|png|gif|jpeg" > /var/media/logs/slides.new.md5
 cd /var/media/current
-md5sum ./* | grep JPG > /var/media/logs/slides.current.md5
+md5sum ./* | grep egrep -i "jpg|png|gif|jpeg" > /var/media/logs/slides.current.md5
 
 #md5sum /var/media/slides/* | grep JPG > /var/media/logs/slides.new.md5
 #md5sum /var/media/current/* | grep JPG > /var/media/logs/slides.current.md5
