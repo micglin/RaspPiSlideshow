@@ -39,6 +39,7 @@
  </style>
  </head>
  <body>
+     <a href="/">Return to Main Page</a>
      <div class="header">  
 	<div id="dropbox">
 		<div class="text">
