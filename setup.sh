@@ -11,7 +11,7 @@ sudo apt-get update
 sudo apt-get upgrade -y
 
 # Install required packages
-sudo apt-get install -y fbi screen omxplayer imagemagick python-pygame
+sudo apt-get install -y fbi screen omxplayer imagemagick python-pygame git
 
 # Clone the github directory
 mkdir -p git-tmp
