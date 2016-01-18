@@ -248,8 +248,9 @@ def mainLoop():
     DISPLAYSURF.blit(text_surface, (2*so+s1w+5,145))
     
     pygame.draw.rect(DISPLAYSURF, (255,255,255), (2*so+s1w+5,195,350,150), 0)
-    icon = pygame.image.load(WEATHER_IMG+weather['current_conditions']['icon']+".gif").convert()
-    DISPLAYSURF.blit(icon, (2*so+s1w+5,195))
+    if os.path.isfile(WEATHER_IMG+weather['current_conditions']['icon']+".gif"):
+      icon = pygame.image.load(WEATHER_IMG+weather['current_conditions']['icon']+".gif").convert()
+      DISPLAYSURF.blit(icon, (2*so+s1w+5,195))
 
     font = pygame.font.Font(None, 70)
     text_surface = font.render(weather['current_conditions']['temperature']+"F", True, (100, 100, 255))  # White text  
@@ -266,12 +267,15 @@ def mainLoop():
     pygame.draw.rect(DISPLAYSURF, (255,255,255), (2*so+s1w+5,350,55,55), 0)
     pygame.draw.rect(DISPLAYSURF, (255,255,255), (2*so+s1w+5+110,350,55,55), 0)
     pygame.draw.rect(DISPLAYSURF, (255,255,255), (2*so+s1w+5+220,350,55,55), 0)
-    icon = pygame.image.load(WEATHER_IMG+weather['current_conditions']['icon']+".gif").convert()
-    DISPLAYSURF.blit(icon, (2*so+s1w+5,350))
-    icon = pygame.image.load(WEATHER_IMG+weather['forecasts'][1]['day']['icon']+".gif").convert()
-    DISPLAYSURF.blit(icon, (2*so+s1w+5+110,350))
-    icon = pygame.image.load(WEATHER_IMG+weather['forecasts'][2]['day']['icon']+".gif").convert()
-    DISPLAYSURF.blit(icon, (2*so+s1w+5+220,350))
+    if os.path.isfile(WEATHER_IMG+weather['current_conditions']['icon']+".gif"):
+      icon = pygame.image.load(WEATHER_IMG+weather['current_conditions']['icon']+".gif").convert()
+      DISPLAYSURF.blit(icon, (2*so+s1w+5,350))
+    if os.path.isfile(WEATHER_IMG+weather['forcasts'][1]['icon']+".gif"):
+      icon = pygame.image.load(WEATHER_IMG+weather['forecasts'][1]['day']['icon']+".gif").convert()
+      DISPLAYSURF.blit(icon, (2*so+s1w+5+110,350))
+    if os.path.isfile(WEATHER_IMG+weather['forcasts'][2]['icon']+".gif"):
+      icon = pygame.image.load(WEATHER_IMG+weather['forecasts'][2]['day']['icon']+".gif").convert()
+      DISPLAYSURF.blit(icon, (2*so+s1w+5+220,350))
 
     font = pygame.font.Font(None, 35)
     text_surface = font.render(weather['forecasts'][0]['day_of_week'], True, (255, 255, 255), (0,0,0))  # White text  
