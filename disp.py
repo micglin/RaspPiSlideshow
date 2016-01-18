@@ -83,7 +83,7 @@ def main():
 def dispLogo():
     DISPLAYSURF.fill(BLACK)
 
-    logo = pygame.image.load("logo.jpg").convert()
+    logo = pygame.image.load("/var/media/bg.jpg").convert()
     logo2 = pygame.transform.scale(logo, (DISPLAY_W, DISPLAY_H))
     DISPLAYSURF.blit(logo2, (0,0))
 
