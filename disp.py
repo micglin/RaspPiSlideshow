@@ -25,6 +25,8 @@ GREEN = (  0, 255,   0)
 BLUE  = (  0,   0, 255)
 IRED  = (176,  23,  21)
 SLIDES_DIR = "/var/media/current/"
+LOGOS_DIR =  "/var/media/logos/"
+DATA_DIR =  "/var/media/data/"
 
 update_slide = 10
 update_text1 = 1     
@@ -32,6 +34,9 @@ update_text2 = 1
 update_logo = 60
 update_weather = 900
 update_stocks = 900
+
+line1 = ["Welcome here!", "Welcome two!"]
+line2 = ["Have a nice day!", "Visit the tech hub!", "There will be cake at the end of the day"]
 
 # main game loop
 def main():
@@ -62,7 +67,7 @@ def main():
         break
 
     global FPSCLOCK, DISPLAYSURF, DISPLAY_W, DISPLAY_H
-    global slide_num, last_slide, last_text1, last_text2, last_logo
+    global slide_num, last_slide, last_text1, last_text2, last_logo, line1_num, line2_num
     
     last_slide = now
     last_text1 = now   
@@ -70,6 +75,8 @@ def main():
     last_logo = now
 
     slide_num = 0
+    line1_num = 0
+    line2_num = 0
 
     FPSCLOCK = pygame.time.Clock()
     size = (pygame.display.Info().current_w, pygame.display.Info().current_h)
@@ -137,7 +144,7 @@ def dispLogo():
     DISPLAYSURF.blit (textSurfaceObj, textRectObj)
 
 def mainLoop():
-    global slide_num, last_slide, last_text1, last_text2, last_logo
+    global slide_num, last_slide, last_text1, last_text2, last_logo, line1_num, line2_num
     now = time.time()
     
     DISPLAYSURF.fill((0, 0, 0))
@@ -169,10 +176,45 @@ def mainLoop():
       last_slide = now
       slide_num = slide_num+1
 
+    # Draw Text Ticker
+    if line1_num>=len(line1):
+      line1_num=0;
+
+    font = pygame.font.SysFont("liberationsans", 100)
+    text_surface = font.render(line1[line1_num], 
+      True, (255, 255, 200))
+    DISPLAYSURF.blit(text_surface, (5, 880))
+    if now-last_text1 > update_text1:
+      last_text1 = now
+      line1_num = line1_num+1
+
+    if line2_num>=len(line2):
+      line2_num=0;
+
+    font = pygame.font.Font(None, 70)
+    text_surface = font.render(line2[line2_num], 
+      True, (255, 255, 200))
+    DISPLAYSURF.blit(text_surface, (5, 980))
+    if now-last_text2 > update_text2:
+      last_text2 = now
+      line2_num = line2_num+1
+
+    # Display Logo
+    logos = [f for f in listdir(LOGOS_DIR) if isfile(join(LOGOS_DIR, f))]
+
+    if logo_num>=len(logos):
+      logo_num=0;
+
+    logo = pygame.image.load(LOGOS_DIR+logos[logo_num]).convert()
+    logo2 = pygame.transform.scale(logo, (362,129))
+    DISPLAYSURF.blit(logo2, (2*so+s1w+1,so+1))
+    if now-last_logo > update_logo:
+       last_logo = now
+       w_num = w_num+1
+
     print "."
 
 # Run Main Function
 if __name__ == '__main__':
     main()
-
 
