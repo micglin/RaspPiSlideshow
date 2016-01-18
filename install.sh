@@ -6,15 +6,15 @@
 #####################################
 
 # Create working directories
-sudo mkdir -p /var/media/scripts
-sudo mkdir -p /var/media/logs
-sudo mkdir -p /var/media/current	# Working directory for running slideshow
-sudo mkdir -p /var/media/slides 	# Upload location for new slide files
-sudo mkdir -p /var/media/videos
-sudo mkdir -p /var/media/data
-sudo mkdir -p /var/media/data/yimg
-sudo mkdir -p /var/media/logos
-sudo chmod -R 777 /var/media
+mkdir -p /var/media/scripts
+mkdir -p /var/media/logs
+mkdir -p /var/media/current	# Working directory for running slideshow
+mkdir -p /var/media/slides 	# Upload location for new slide files
+mkdir -p /var/media/videos
+mkdir -p /var/media/data
+mkdir -p /var/media/data/yimg
+mkdir -p /var/media/logos
+chmod -R 777 /var/media
 
 # Pull scripts from git repo
 cp video.sh /var/media/scripts
@@ -36,8 +36,8 @@ wget https://app.kronusec.com/pear/get/repo/checkin.sh -O /var/media/scripts/che
 
 # Make executable
 
-sudo chmod a+x /var/media/scripts/*.sh
-sudo chmod a+x /var/media/scripts/*.py
+chmod a+x /var/media/scripts/*.sh
+chmod a+x /var/media/scripts/*.py
 
 #Setup Crontab
 cat <<EOF | sudo crontab -

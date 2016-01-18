@@ -19,4 +19,4 @@ cd git-tmp
 rm -rf RaspPiSlideshow
 git clone https://github.com/micglin/RaspPiSlideshow
 cd RaspPiSlideshow
-./install.sh
+sudo ./install.sh
