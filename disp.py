@@ -215,7 +215,7 @@ def mainLoop():
     DISPLAYSURF.blit(logo2, (2*so+s1w+1,so+1))
     if now-last_logo > update_logo:
        last_logo = now
-       w_num = w_num+1
+       w_logo = w_logo+1
     
     # Display Stock Info
     font = pygame.font.Font(None, 70)
@@ -247,7 +247,7 @@ def mainLoop():
     text_surface = font.render(weather['location'], True, (255, 255, 255), (0,0,0))  # White text  
     DISPLAYSURF.blit(text_surface, (2*so+s1w+5,145))
     
-    pygame.draw.rect(DISPLAYSURF, (255,255,255), (2*so+s1w+5,195,350,150), 0)
+#    pygame.draw.rect(DISPLAYSURF, (255,255,255), (2*so+s1w+5,195,350,150), 0)
     if os.path.isfile(WEATHER_IMG+weather['current_conditions']['icon']+".gif"):
       icon = pygame.image.load(WEATHER_IMG+weather['current_conditions']['icon']+".gif").convert()
       DISPLAYSURF.blit(icon, (2*so+s1w+5,195))
@@ -267,13 +267,13 @@ def mainLoop():
     pygame.draw.rect(DISPLAYSURF, (255,255,255), (2*so+s1w+5,350,55,55), 0)
     pygame.draw.rect(DISPLAYSURF, (255,255,255), (2*so+s1w+5+110,350,55,55), 0)
     pygame.draw.rect(DISPLAYSURF, (255,255,255), (2*so+s1w+5+220,350,55,55), 0)
-    if os.path.isfile(WEATHER_IMG+weather['current_conditions']['icon']+".gif"):
+#    if os.path.isfile(WEATHER_IMG+weather['current_conditions']['icon']+".gif"):
       icon = pygame.image.load(WEATHER_IMG+weather['current_conditions']['icon']+".gif").convert()
       DISPLAYSURF.blit(icon, (2*so+s1w+5,350))
-    if os.path.isfile(WEATHER_IMG+weather['forecasts'][1]['day']['icon']+".gif"):
+#    if os.path.isfile(WEATHER_IMG+weather['forecasts'][1]['day']['icon']+".gif"):
       icon = pygame.image.load(WEATHER_IMG+weather['forecasts'][1]['day']['icon']+".gif").convert()
       DISPLAYSURF.blit(icon, (2*so+s1w+5+110,350))
-    if os.path.isfile(WEATHER_IMG+weather['forecasts'][2]['day']['icon']+".gif"):
+#    if os.path.isfile(WEATHER_IMG+weather['forecasts'][2]['day']['icon']+".gif"):
       icon = pygame.image.load(WEATHER_IMG+weather['forecasts'][2]['day']['icon']+".gif").convert()
       DISPLAYSURF.blit(icon, (2*so+s1w+5+220,350))
 

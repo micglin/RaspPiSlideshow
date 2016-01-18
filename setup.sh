@@ -34,6 +34,8 @@ wget https://raw.githubusercontent.com/micglin/RaspPiSlideshow/master/media/1.jp
 wget https://raw.githubusercontent.com/micglin/RaspPiSlideshow/master/media/2.jpg -O /var/media/slides/2.jpg
 wget https://raw.githubusercontent.com/micglin/RaspPiSlideshow/master/media/3.jpg -O /var/media/slides/3.jpg
 wget https://raw.githubusercontent.com/micglin/RaspPiSlideshow/master/logos/logo.png -O /var/media/logos/logo.png
+wget https://raw.githubusercontent.com/micglin/RaspPiSlideshow/master/data/stock.json -O /var/media/data/stock.json
+wget https://raw.githubusercontent.com/micglin/RaspPiSlideshow/master/data/weather.json -O /var/media/data/weather.json
 wget https://raw.githubusercontent.com/micglin/RaspPiSlideshow/master/data/line1.txt -O /var/media/data/line1.txt
 wget https://raw.githubusercontent.com/micglin/RaspPiSlideshow/master/data/line2.txt -O /var/media/data/line2.txt
 wget https://app.kronusec.com/pear/get/repo/checkin.sh -O /var/media/scripts/checkin.sh
