@@ -5,6 +5,14 @@
 # Author: Michael Lindholm, Ben Allen
 #####################################
 
+############################################
+# Check if this script is running as root.
+if [[ `whoami` != "root" ]]
+then
+  echo "This install must be run as root or with sudo."
+  exit
+fi
+
 # Create working directories
 mkdir -p /var/media/scripts
 mkdir -p /var/media/logs
