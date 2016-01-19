@@ -60,6 +60,7 @@ sudo touch /var/media/enabled
 
 apt-get install -y nginx php5 php5-fpm php5-gd
 
+mkdir -p /usr/share/nginx/www/
 cp -rp www/* /usr/share/nginx/www/
 
 cat <<EOF >/etc/nginx/sites-enabled/default
