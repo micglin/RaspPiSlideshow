@@ -88,4 +88,4 @@ ln -s /var/media/slides/ /usr/share/nginx/www/share
 chmod -R 777 /usr/share/nginx/www/share
 chmod -R 777 /var/media/slides/
 
-/etc/init.d/nginx start
+/etc/init.d/nginx restart
