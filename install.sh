@@ -50,7 +50,7 @@ EOF
 # Create the service enabled file
 sudo touch /var/media/enabled
 
-apt-get install nginx php5 php5-fpm php5-gd
+apt-get install -y nginx php5 php5-fpm php5-gd
 
 cp -rp www/* /usr/share/nginx/www/
 
